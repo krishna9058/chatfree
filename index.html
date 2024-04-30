@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chat</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f1f1f1;
+    }
+
+    .chat-container {
+        max-width: 500px;
+        margin: 20px auto;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        overflow: hidden;
+    }
+
+    .chat-messages {
+        padding: 10px;
+        overflow-y: auto;
+        max-height: 300px;
+    }
+
+    .message {
+        margin-bottom: 10px;
+    }
+
+    .message p {
+        background-color: #f9f9f9;
+        padding: 5px 10px;
+        border-radius: 10px;
+        display: inline-block;
+        max-width: 80%;
+    }
+
+    .message.sent p {
+        background-color: #dcf8c6;
+        float: right;
+    }
+
+    .message.received p {
+        background-color: #fff;
+        float: left;
+    }
+
+    .message input[type="text"] {
+        width: calc(100% - 20px);
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin: 0 10px;
+    }
+
+    .message input[type="submit"] {
+        padding: 10px 20px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+</style>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-messages" id="chat-messages">
+            <!-- Messages will be added here dynamically -->
+        </div>
+        <div class="message">
+            <input type="text" id="message-input" placeholder="Type your message...">
+            <input type="submit" value="Send" onclick="sendMessage()">
+        </div>
+    </div>
+
+    <script>
+        function sendMessage() {
+            var messageInput = document.getElementById("message-input");
+            var message = messageInput.value;
+            if (message.trim() === "") {
+                return;
+            }
+            var chatMessages = document.getElementById("chat-messages");
+            var newMessage = document.createElement("div");
+            newMessage.className = "message sent";
+            newMessage.innerHTML = "<p>" + message + "</p>";
+            chatMessages.appendChild(newMessage);
+            messageInput.value = "";
+            // Simulating received message after 1 second
+            setTimeout(receiveMessage, 1000);
+        }
+
+        function receiveMessage() {
+            var chatMessages = document.getElementById("chat-messages");
+            var newMessage = document.createElement("div");
+            newMessage.className = "message received";
+            newMessage.innerHTML = "<p>This is a received message</p>";
+            chatMessages.appendChild(newMessage);
+        }
+    </script>
+</body>
+</html>
